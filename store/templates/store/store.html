@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'store/main.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <!-- создаем окошки в которых располагаются товары -->
+    <div class="row">
+        {% for product in products %}
+            <!-- for product позволяет сделать так,чтобы добавились все товары из views.py. нам не надо писать класс с продуктом
+            отдельно для каждого товара. на основе одного добавятся все продукты -->
+        <div class="col-lg-4">
+            <img class="thumbnail" src="{{ product.imageURL }}" alt="place">
+            <div class="box-element product">
+                <h6><strong>{{ product.name }}</strong></h6>
+                <hr>
+                <!-- создаем кнопку добавить товар и обзор. классы позволяют придать вид кнопкам-->
+                <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Добавить в корзину</button>
+                <a class="btn btn-outline-success" href="#"> Обзор</a>
+                <!-- добавляет цену на окошко товара-->
+
+                <h4 style="display: inline-block;float: right">${{ product.price| floatformat:2 }} </h4>
+
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+<img src="{% static 'images/cart2.png' %}" alt="cart">
+
+</body>
+</html>
